@@ -60,9 +60,7 @@ internal class SSHWalletWidget : CoreWidget
             var hostsArray = new JsonArray();
 
             var hostEntries = GetHostEntries();
-            if (hostEntries != null)
-            {
-                hostEntries.ToList().ForEach(hostEntry =>
+            hostEntries?.ToList().ForEach(hostEntry =>
                 {
                     var host = hostEntry.Groups[1].Value;
                     var hostJson = new JsonObject
@@ -72,7 +70,6 @@ internal class SSHWalletWidget : CoreWidget
                         };
                     ((IList<JsonNode?>)hostsArray).Add(hostJson);
                 });
-            }
 
             hostsData.Add("hosts", hostsArray);
             hostsData.Add("selected_config_file", ConfigFile);
@@ -121,7 +118,7 @@ internal class SSHWalletWidget : CoreWidget
     {
         var data = args.Data;
 
-        Process cmd = new Process();
+        var cmd = new Process();
 
         var info = new ProcessStartInfo
         {
@@ -161,8 +158,10 @@ internal class SSHWalletWidget : CoreWidget
 
     private MatchCollection? GetHostEntries()
     {
-        FileStreamOptions options = new FileStreamOptions();
-        options.Access = FileAccess.Read;
+        var options = new FileStreamOptions
+        {
+            Access = FileAccess.Read,
+        };
 
         using var reader = new StreamReader(ConfigFile, options);
 
@@ -192,17 +191,18 @@ internal class SSHWalletWidget : CoreWidget
         var configFileDir = Path.GetDirectoryName(ConfigFile);
         var configFileName = Path.GetFileName(ConfigFile);
 
-        if (configFileDir != null && configFileName != null )
+        if (configFileDir != null && configFileName != null)
         {
-            FileWatcher = new FileSystemWatcher(configFileDir, configFileName);
-
-            FileWatcher.NotifyFilter = NotifyFilters.Attributes
+            FileWatcher = new FileSystemWatcher(configFileDir, configFileName)
+            {
+                NotifyFilter = NotifyFilters.Attributes
                                  | NotifyFilters.DirectoryName
                                  | NotifyFilters.FileName
                                  | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.Security
-                                 | NotifyFilters.Size;
+                                 | NotifyFilters.Size,
+            };
 
             FileWatcher.Changed += OnConfigFileChanged;
             FileWatcher.Deleted += OnConfigFileDeleted;

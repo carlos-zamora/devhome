@@ -239,6 +239,7 @@ public partial class DashboardView : ToolPage
             }
 
             // Now that we've ordered the widgets, put them in their final collection.
+            // The insertions are not truly async, since we want the widgets to go into the collection in the right order.
             var finalPlace = 0;
             foreach (var orderedWidget in restoredWidgetsWithPosition)
             {

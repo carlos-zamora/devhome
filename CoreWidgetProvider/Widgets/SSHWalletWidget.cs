@@ -114,6 +114,11 @@ internal class SSHWalletWidget : CoreWidget
         }
     }
 
+    public override void OnCustomizationRequested(WidgetCustomizationRequestedArgs customizationRequestedArgs)
+    {
+        SetConfigure(ConfigFile);
+    }
+
     private void HandleConnect(WidgetActionInvokedArgs args)
     {
         var data = args.Data;
@@ -366,11 +371,11 @@ internal class SSHWalletWidget : CoreWidget
         UpdateWidget();
     }
 
-    private void SetConfigure()
+    private void SetConfigure(string currentConfigFile = "")
     {
         FileWatcher?.Dispose();
         ActivityState = WidgetActivityState.Configure;
-        ConfigFile = string.Empty;
+        ConfigFile = currentConfigFile;
         Page = WidgetPageState.Configure;
         LogCurrentState();
         UpdateWidget();

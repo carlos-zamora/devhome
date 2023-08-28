@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using ABI.Microsoft.Windows.Widgets.Hosts;
 using DevHome.Dashboard.Helpers;
 using DevHome.Dashboard.ViewModels;
 using DevHome.Dashboard.Views;
@@ -210,15 +211,23 @@ public sealed partial class WidgetControl : UserControl
         };
         menuItemCustomize.Click += OnCustomizeWidgetClick;
         widgetMenuFlyout.Items.Add(menuItemCustomize);
+
+        if (!widgetViewModel.IsCustomizable)
+        {
+            menuItemCustomize.IsEnabled = false;
+        }
     }
 
-    private void OnCustomizeWidgetClick(object sender, RoutedEventArgs e)
+    private async void OnCustomizeWidgetClick(object sender, RoutedEventArgs e)
     {
         if (sender is MenuFlyoutItem customizeMenuItem)
         {
             if (customizeMenuItem?.Tag is WidgetViewModel widgetViewModel)
             {
                 widgetViewModel.IsInEditMode = true;
+                var w = widgetViewModel.Widget;
+                var wi = w as Microsoft.Windows.Widgets.Hosts.IWidget2;
+                await w.NotifyCustomizationRequestedAsync();
             }
         }
     }

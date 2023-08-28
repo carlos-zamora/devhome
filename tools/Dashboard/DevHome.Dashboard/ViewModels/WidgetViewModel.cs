@@ -35,6 +35,9 @@ public partial class WidgetViewModel : ObservableObject
     private WidgetSize _widgetSize;
 
     [ObservableProperty]
+    private bool _isCustomizable;
+
+    [ObservableProperty]
     private string _widgetDisplayTitle;
 
     [ObservableProperty]
@@ -73,6 +76,7 @@ public partial class WidgetViewModel : ObservableObject
         if (WidgetDefinition != null)
         {
             WidgetDisplayTitle = WidgetDefinition.DisplayTitle;
+            IsCustomizable = WidgetDefinition.IsCustomizable;
         }
     }
 

@@ -19,6 +19,7 @@ using DevHome.Dashboard.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.Windows.Widgets;
 using Microsoft.Windows.Widgets.Hosts;
 using Windows.Storage;
@@ -169,6 +170,18 @@ public partial class DashboardView : ToolPage
             {
                 Log.Logger()?.ReportError("DashboardView", $"HostConfig contents are {hostConfigContents}");
             }
+
+            // Ensure the correct font is being used
+            renderer.OverrideStyles = new ResourceDictionary();
+
+            var textBlockFontFamilyStyle = new Style(typeof(TextBlock));
+            textBlockFontFamilyStyle.Setters.Add(new Setter(TextBlock.FontFamilyProperty, new FontFamily("Comic Sans")));
+
+            var richTextBlockFontFamilyStyle = new Style(typeof(RichTextBlock));
+            richTextBlockFontFamilyStyle.Setters.Add(new Setter(RichTextBlock.FontFamilyProperty, new FontFamily("Comic Sans")));
+
+            renderer.OverrideStyles.Add("Adaptive.TextBlock", textBlockFontFamilyStyle);
+            renderer.OverrideStyles.Add("Adaptive.RichTextBlock", richTextBlockFontFamilyStyle);
         });
 
         return;

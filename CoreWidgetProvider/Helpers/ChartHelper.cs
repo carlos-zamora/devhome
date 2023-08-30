@@ -17,7 +17,7 @@ internal class ChartHelper
         Net,
     }
 
-    public const int ChartHeight = 102;
+    public const int ChartHeight = 84;
     public const int ChartWidth = 264;
 
     private const string LightGrayBoxStyle = "fill:none;stroke:lightgrey;stroke-width:1";

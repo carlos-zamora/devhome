@@ -8,6 +8,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pg="using:DevHome.Common"
+    xmlns:viewmodels="using:DevHome.ExtensionLibrary.ViewModels"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d">
 
     <Grid MaxWidth="{ThemeResource MaxPageContentWidth}" Margin="{ThemeResource ContentPageMargin}">
@@ -22,11 +24,61 @@
                             Style="{ThemeResource AccentButtonStyle}" 
                             Command="{x:Bind ViewModel.GetUpdatesButtonCommand}"/>
                 </Grid>
+                <ItemsRepeater ItemsSource="{x:Bind ViewModel.InstalledPackagesList, Mode=OneWay}">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:InstalledPackageViewModel">
+                            <labs:SettingsExpander Header="{x:Bind Title}"
+                                                   Description="{x:Bind Publisher}"
+                                                   Margin="{ThemeResource SettingsCardMargin}"
+                                                   ItemsSource="{x:Bind InstalledPluginsList}"
+                                                   IsExpanded="True">
+                                <labs:SettingsExpander.HeaderIcon>
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea86;"/>
+                                </labs:SettingsExpander.HeaderIcon>
+                                <Button Content="&#xe712;"
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                                        Background="Transparent"
+                                        BorderThickness="0" />
+                                <labs:SettingsExpander.ItemTemplate>
+                                    <DataTemplate x:DataType="viewmodels:InstalledPluginViewModel">
+                                        <labs:SettingsCard Header="Manage extension">
+                                            <StackPanel Orientation="Horizontal">
+                                                <ToggleSwitch></ToggleSwitch>
+                                                <Button Content="&#xe76c;"
+                                                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                                                        Background="Transparent"
+                                                        BorderThickness="0" />
+                                            </StackPanel>
+                                        </labs:SettingsCard>
+                                    </DataTemplate>
+                                </labs:SettingsExpander.ItemTemplate>
+                            </labs:SettingsExpander>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
 
                 <!-- Available items -->
                 <TextBlock x:Uid="AvailableFromStoreTextBlock"
                            Margin="{StaticResource ExtensionLibrarySubTitleMargin}" />
-
+                <ItemsRepeater ItemsSource="{x:Bind ViewModel.StorePackagesList, Mode=OneWay}">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:StorePackageViewModel">
+                            <labs:SettingsCard Header="{x:Bind Title}"
+                                               Description="{x:Bind Publisher}"
+                                               Margin="{ThemeResource SettingsCardMargin}"
+                                               IsClickEnabled="False">
+                                <labs:SettingsCard.HeaderIcon>
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea86;"/>
+                                </labs:SettingsCard.HeaderIcon>
+                                <Button Content="Get"
+                                        Padding="25 4 25 6"
+                                        Command="{x:Bind LaunchStoreButtonCommand}"
+                                        CommandParameter="{x:Bind ProductId}" />
+                            </labs:SettingsCard>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>

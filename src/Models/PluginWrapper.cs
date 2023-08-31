@@ -30,10 +30,12 @@ public class PluginWrapper : IPluginWrapper
 
     private IPlugin? _pluginObject;
 
-    public PluginWrapper(string name, string packageFullName, string classId)
+    public PluginWrapper(string name, string packageFullName, string packageFamilyName, string publisher, string classId)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
         PackageFullName = packageFullName ?? throw new ArgumentNullException(nameof(packageFullName));
+        PackageFamilyName = packageFamilyName ?? throw new ArgumentNullException(nameof(packageFamilyName));
+        Publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
         PluginClassId = classId ?? throw new ArgumentNullException(nameof(classId));
     }
 
@@ -43,6 +45,16 @@ public class PluginWrapper : IPluginWrapper
     }
 
     public string PackageFullName
+    {
+        get;
+    }
+
+    public string PackageFamilyName
+    {
+        get;
+    }
+
+    public string Publisher
     {
         get;
     }

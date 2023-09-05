@@ -24,7 +24,7 @@
             ItemsSource="{x:Bind Breadcrumbs}" />
 
         <ScrollViewer Grid.Row="1" VerticalAlignment="Top">
-            <labs:SettingsExpander x:Uid="Settings_About_Card" IsExpanded="True">
+            <labs:SettingsExpander x:Uid="Settings_About_Card" IsExpanded="True" CornerRadius="{StaticResource SettingsCardTopCornerRadius}">
                 <labs:SettingsExpander.HeaderIcon>
                     <BitmapIcon ShowAsMonochrome="False" UriSource="/Assets/DevHome.ico" />
                 </labs:SettingsExpander.HeaderIcon>
@@ -33,7 +33,7 @@
                     IsTextSelectionEnabled="True"
                     Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
                 <labs:SettingsExpander.Items>
-                    <labs:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Left">
+                    <labs:SettingsCard HorizontalContentAlignment="Left" ContentAlignment="Left" CornerRadius="{StaticResource SettingsCardBottomCornerRadius}">
                         <StackPanel Orientation="Vertical">
                             <TextBlock x:Uid="Settings_About_RelatedLinks" Margin="{StaticResource XSmallTopBottomMargin}" />
                             <HyperlinkButton x:Uid="SettingsPage_SourceCodeLink" Margin="{StaticResource HyperlinkButtonNegativeMargin}" />

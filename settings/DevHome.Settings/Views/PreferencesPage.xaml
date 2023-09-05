@@ -28,7 +28,8 @@
             ItemsSource="{x:Bind Breadcrumbs}" />
 
         <ScrollViewer Grid.Row="1" VerticalAlignment="Top">
-            <labs:SettingsCard x:Uid="Settings_Theme">
+            <labs:SettingsCard x:Uid="Settings_Theme"
+                               CornerRadius="{StaticResource SettingsCardCornerRadius}">
                 <labs:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE790;" />
                 </labs:SettingsCard.HeaderIcon>

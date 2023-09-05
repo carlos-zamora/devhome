@@ -7,7 +7,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:ctControls="using:CommunityToolkit.WinUI.Controls"
     xmlns:behaviors="using:DevHome.Common.Behaviors" 
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
@@ -96,46 +96,46 @@
                     </Hyperlink>
                 </TextBlock>
                 <StackPanel Spacing="{StaticResource SettingsCardSpacing}">
-                    <labs:SettingsCard x:Uid="Settings_Feedback_ReportBug"
+                    <ctControls:SettingsCard x:Uid="Settings_Feedback_ReportBug"
                                        CornerRadius="{StaticResource SettingsCardCornerRadius}">
-                        <labs:SettingsCard.HeaderIcon>
+                        <ctControls:SettingsCard.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                   Glyph="&#xebe8;"/>
-                        </labs:SettingsCard.HeaderIcon>
+                        </ctControls:SettingsCard.HeaderIcon>
                         <Button x:Uid="Settings_Feedback_ReportBug_Button" Click="DisplayReportBugDialog"/>
-                    </labs:SettingsCard>
-                    <labs:SettingsCard x:Uid="Settings_Feedback_FeatureImprovement"
+                    </ctControls:SettingsCard>
+                    <ctControls:SettingsCard x:Uid="Settings_Feedback_FeatureImprovement"
                                        CornerRadius="{StaticResource SettingsCardCornerRadius}">
-                        <labs:SettingsCard.HeaderIcon>
+                        <ctControls:SettingsCard.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                   Glyph="&#xea80;"/>
-                        </labs:SettingsCard.HeaderIcon>
+                        </ctControls:SettingsCard.HeaderIcon>
                         <Button x:Uid="Settings_Feedback_FeatureImprovement_Button" Click="DisplaySuggestFeature"/>
-                    </labs:SettingsCard>
-                    <labs:SettingsCard x:Uid="Settings_Feedback_LocalizationIssue"
+                    </ctControls:SettingsCard>
+                    <ctControls:SettingsCard x:Uid="Settings_Feedback_LocalizationIssue"
                                        CornerRadius="{StaticResource SettingsCardCornerRadius}">
-                        <labs:SettingsCard.HeaderIcon>
+                        <ctControls:SettingsCard.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                   Glyph="&#xE909;"/>
-                        </labs:SettingsCard.HeaderIcon>
+                        </ctControls:SettingsCard.HeaderIcon>
                         <Button x:Uid="Settings_Feedback_LocalizationIssue_Button" Click="DisplayLocalizationIssueDialog"/>
-                    </labs:SettingsCard>
-                    <labs:SettingsCard x:Uid="Settings_Feedback_BuildExtension"
+                    </ctControls:SettingsCard>
+                    <ctControls:SettingsCard x:Uid="Settings_Feedback_BuildExtension"
                                        CornerRadius="{StaticResource SettingsCardCornerRadius}">
-                        <labs:SettingsCard.HeaderIcon>
+                        <ctControls:SettingsCard.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                   Glyph="&#xea86;"/>
-                        </labs:SettingsCard.HeaderIcon>
+                        </ctControls:SettingsCard.HeaderIcon>
                         <Button x:Uid="Settings_Feedback_BuildExtension_Button" Click="BuildExtensionButtonClicked"/>
-                    </labs:SettingsCard>
-                    <labs:SettingsCard x:Uid="Settings_Feedback_ReportSecurity"
+                    </ctControls:SettingsCard>
+                    <ctControls:SettingsCard x:Uid="Settings_Feedback_ReportSecurity"
                                        CornerRadius="{StaticResource SettingsCardCornerRadius}">
-                        <labs:SettingsCard.HeaderIcon>
+                        <ctControls:SettingsCard.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                   Glyph="&#xf552;"/>
-                        </labs:SettingsCard.HeaderIcon>
+                        </ctControls:SettingsCard.HeaderIcon>
                         <Button x:Uid="Settings_Feedback_ReportSecurity_Button" Click="ReportSecurityButtonClicked"/>
-                    </labs:SettingsCard>
+                    </ctControls:SettingsCard>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

@@ -89,9 +89,9 @@ public partial class ExtensionsViewModel : ObservableObject
         }
     }
 
-    private async void OnPluginsChanged(object? sender, EventArgs e)
+    private void OnPluginsChanged(object? sender, EventArgs e)
     {
-        await _dispatcher.EnqueueAsync(() => { DisplaySettings(); });
+        ////await _dispatcher.EnqueueAsync(() => { DisplaySettings(); });
     }
 
     public void Navigate(string path)

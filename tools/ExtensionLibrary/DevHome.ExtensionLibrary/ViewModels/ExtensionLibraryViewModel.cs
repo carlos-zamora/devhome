@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -72,7 +73,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
 
             var plugin = new InstalledPluginViewModel(pluginWrapper.Name, pluginWrapper.PackageFamilyName);
 
-            bool foundPackage = false;
+            var foundPackage = false;
             foreach (var installedPackage in InstalledPackagesList)
             {
                 if (installedPackage.PackageFamilyName == pluginWrapper.PackageFamilyName)
@@ -134,7 +135,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
                 // Don't show packages of already installed plugins as available.
                 if (productId == devHomeProductId || IsAlreadyInstalled(productId))
                 {
-                    continue;
+                    ////continue;
                 }
 
                 var title = string.Empty;
@@ -161,15 +162,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
     {
         // PackageFullName = Microsoft.Windows.DevHome.Dev_0.0.0.0_x64__8wekyb3d8bbwe
         // PackageFamilyName = Microsoft.Windows.DevHomeGitHubExtension_8wekyb3d8bbwe
-        foreach (var package in InstalledPackagesList)
-        {
-            if (productId == package.ProductId)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return InstalledPackagesList.Any(package => productId == package.ProductId);
     }
 
     [RelayCommand]

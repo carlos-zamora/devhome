@@ -42,7 +42,10 @@
                                 <labs:SettingsExpander.ItemTemplate>
                                     <DataTemplate x:DataType="viewmodels:InstalledPluginViewModel">
                                         <labs:SettingsCard Header="Manage extension">
-                                            <StackPanel Orientation="Horizontal">
+                                            <labs:SettingsCard.ActionIcon>
+                                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xe76c;"/>
+                                            </labs:SettingsCard.ActionIcon>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                                 <ToggleSwitch></ToggleSwitch>
                                                 <Button Content="&#xe76c;"
                                                         FontFamily="{StaticResource SymbolThemeFontFamily}" 

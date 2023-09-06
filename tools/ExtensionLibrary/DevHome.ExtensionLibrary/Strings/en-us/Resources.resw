@@ -82,4 +82,8 @@
     <value>Available from the Store</value>
     <comment>Header for the list of packages available for download from the store</comment>
   </data>
+  <data name="UninstallItem.Text" xml:space="preserve">
+    <value>Uninstall</value>
+    <comment>Button to uninstall the extension</comment>
+  </data>
 </root>

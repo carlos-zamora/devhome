@@ -55,4 +55,10 @@ public partial class InstalledPackageViewModel : ObservableObject
         var linkString = $"ms-windows-store://pdp/?ProductId={packageId}&mode=mini";
         await Launcher.LaunchUriAsync(new (linkString));
     }
+
+    [RelayCommand]
+    public async Task UninstallButton()
+    {
+        await Launcher.LaunchUriAsync(new ("ms-settings:appsfeatures"));
+    }
 }

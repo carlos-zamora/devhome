@@ -38,7 +38,16 @@
                                 <Button Content="&#xe712;"
                                         FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                         Background="Transparent"
-                                        BorderThickness="0" />
+                                        BorderThickness="0">
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                x:Uid="ms-resource:///DevHome.ExtensionLibrary/Resources/UninstallItem"
+                                                Command="{x:Bind UninstallButtonCommand}">
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
                                 <labs:SettingsExpander.ItemTemplate>
                                     <DataTemplate x:DataType="viewmodels:InstalledExtensionViewModel">
                                         <labs:SettingsCard Header="Manage extension">

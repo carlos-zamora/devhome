@@ -50,16 +50,11 @@
                                 </Button>
                                 <labs:SettingsExpander.ItemTemplate>
                                     <DataTemplate x:DataType="viewmodels:InstalledExtensionViewModel">
-                                        <labs:SettingsCard Header="Manage extension">
-                                            <labs:SettingsCard.ActionIcon>
-                                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xe76c;"/>
-                                            </labs:SettingsCard.ActionIcon>
+                                        <labs:SettingsCard Header="Manage extension"
+                                                           IsClickEnabled="{x:Bind HasSettingsProvider}"
+                                                           Command="{x:Bind NavigateSettingsCommand}">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                                 <ToggleSwitch></ToggleSwitch>
-                                                <Button Content="&#xe76c;"
-                                                        FontFamily="{StaticResource SymbolThemeFontFamily}" 
-                                                        Background="Transparent"
-                                                        BorderThickness="0" />
                                             </StackPanel>
                                         </labs:SettingsCard>
                                     </DataTemplate>

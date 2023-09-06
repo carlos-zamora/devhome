@@ -71,7 +71,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
                 ////continue;
             }
 
-            var extension = new InstalledExtensionViewModel(extensionWrapper.Name, extensionWrapper.PackageFamilyName);
+            var extension = new InstalledExtensionViewModel(extensionWrapper.Name, extensionWrapper.PackageFamilyName, true /*TODO*/);
 
             var foundPackage = false;
             foreach (var installedPackage in InstalledPackagesList)

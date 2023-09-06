@@ -9,7 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using Windows.System;
 
 namespace DevHome.ExtensionLibrary.ViewModels;
-public partial class InstalledPluginViewModel : ObservableObject
+public partial class InstalledExtensionViewModel : ObservableObject
 {
     [ObservableProperty]
     private string _displayName;
@@ -17,7 +17,7 @@ public partial class InstalledPluginViewModel : ObservableObject
     [ObservableProperty]
     private string _packageFamilyName;
 
-    public InstalledPluginViewModel(string displayName, string packageFamilyName)
+    public InstalledExtensionViewModel(string displayName, string packageFamilyName)
     {
         _displayName = displayName;
         _packageFamilyName = packageFamilyName;
@@ -39,7 +39,7 @@ public partial class InstalledPackageViewModel : ObservableObject
     private string _packageFamilyName;
 
     [ObservableProperty]
-    private ObservableCollection<InstalledPluginViewModel> _installedPluginsList = new ();
+    private ObservableCollection<InstalledExtensionViewModel> _installedExtensionsList = new ();
 
     public InstalledPackageViewModel(string productId, string title, string publisher, string packageFamilyName)
     {
@@ -52,7 +52,6 @@ public partial class InstalledPackageViewModel : ObservableObject
     [RelayCommand]
     public async Task LaunchStoreButton(string packageId)
     {
-        // Link format is: ms-windows-store://pdp/?ProductId=9N8MHTPHNGVV&mode=mini
         var linkString = $"ms-windows-store://pdp/?ProductId={packageId}&mode=mini";
         await Launcher.LaunchUriAsync(new (linkString));
     }

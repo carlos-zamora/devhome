@@ -30,7 +30,7 @@
                             <labs:SettingsExpander Header="{x:Bind Title}"
                                                    Description="{x:Bind Publisher}"
                                                    Margin="{ThemeResource SettingsCardMargin}"
-                                                   ItemsSource="{x:Bind InstalledPluginsList}"
+                                                   ItemsSource="{x:Bind InstalledExtensionsList}"
                                                    IsExpanded="True">
                                 <labs:SettingsExpander.HeaderIcon>
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea86;"/>
@@ -40,7 +40,7 @@
                                         Background="Transparent"
                                         BorderThickness="0" />
                                 <labs:SettingsExpander.ItemTemplate>
-                                    <DataTemplate x:DataType="viewmodels:InstalledPluginViewModel">
+                                    <DataTemplate x:DataType="viewmodels:InstalledExtensionViewModel">
                                         <labs:SettingsCard Header="Manage extension">
                                             <labs:SettingsCard.ActionIcon>
                                                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xe76c;"/>

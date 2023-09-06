@@ -40,7 +40,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
         pluginService.OnPluginsChanged -= OnPluginsChanged;
         pluginService.OnPluginsChanged += OnPluginsChanged;
 
-        GetInstalledPlugins();
+        GetInstalledExtensions();
         GetAvailablePackages();
     }
 
@@ -48,14 +48,14 @@ public partial class ExtensionLibraryViewModel : ObservableObject
     {
         await _dispatcher.EnqueueAsync(() =>
         {
-            GetInstalledPlugins();
+            GetInstalledExtensions();
             GetAvailablePackages();
         });
     }
 
-    private void GetInstalledPlugins()
+    private void GetInstalledExtensions()
     {
-        var pluginWrappers = Task.Run(async () =>
+        var extensionWrappers = Task.Run(async () =>
         {
             var pluginService = Application.Current.GetService<IPluginService>();
             return await pluginService.GetInstalledPluginsAsync(true);
@@ -63,31 +63,31 @@ public partial class ExtensionLibraryViewModel : ObservableObject
 
         InstalledPackagesList.Clear();
 
-        foreach (var pluginWrapper in pluginWrappers)
+        foreach (var extensionWrapper in extensionWrappers)
         {
             // Don't show self as an extension.
-            if (Package.Current.Id.FullName == pluginWrapper.PackageFullName)
+            if (Package.Current.Id.FullName == extensionWrapper.PackageFullName)
             {
                 ////continue;
             }
 
-            var plugin = new InstalledPluginViewModel(pluginWrapper.Name, pluginWrapper.PackageFamilyName);
+            var extension = new InstalledExtensionViewModel(extensionWrapper.Name, extensionWrapper.PackageFamilyName);
 
             var foundPackage = false;
             foreach (var installedPackage in InstalledPackagesList)
             {
-                if (installedPackage.PackageFamilyName == pluginWrapper.PackageFamilyName)
+                if (installedPackage.PackageFamilyName == extensionWrapper.PackageFamilyName)
                 {
                     foundPackage = true;
-                    installedPackage.InstalledPluginsList.Add(plugin);
+                    installedPackage.InstalledExtensionsList.Add(extension);
                     break;
                 }
             }
 
             if (!foundPackage)
             {
-                var installedPackage = new InstalledPackageViewModel("x", pluginWrapper.Name, pluginWrapper.Publisher, pluginWrapper.PackageFamilyName);
-                installedPackage.InstalledPluginsList.Add(plugin);
+                var installedPackage = new InstalledPackageViewModel("x", extensionWrapper.Name, extensionWrapper.Publisher, extensionWrapper.PackageFamilyName);
+                installedPackage.InstalledExtensionsList.Add(extension);
                 InstalledPackagesList.Add(installedPackage);
             }
         }
@@ -131,8 +131,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
                 var productObj = product.GetObject();
                 var productId = productObj.GetNamedString("ProductId");
 
-                // Don't show self as available.
-                // Don't show packages of already installed plugins as available.
+                // Don't show self as available, and don't show packages of already installed extensions as available.
                 if (productId == devHomeProductId || IsAlreadyInstalled(productId))
                 {
                     ////continue;

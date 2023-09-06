@@ -21,7 +21,7 @@
                     <TextBlock x:Uid="OnYourPcTextBlock" />
                     <Button x:Uid="GetUpdatesButton"
                             HorizontalAlignment="Right"
-                            Style="{ThemeResource AccentButtonStyle}" 
+                            Style="{ThemeResource AccentButtonStyle}"
                             Command="{x:Bind ViewModel.GetUpdatesButtonCommand}"/>
                 </Grid>
                 <ItemsRepeater ItemsSource="{x:Bind ViewModel.InstalledPackagesList, Mode=OneWay}">
@@ -42,7 +42,7 @@
                                     <Button.Flyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem
-                                                x:Uid="ms-resource:///DevHome.ExtensionLibrary/Resources/UninstallItem"
+                                                x:Uid="UninstallItem"
                                                 Command="{x:Bind UninstallButtonCommand}">
                                             </MenuFlyoutItem>
                                         </MenuFlyout>
@@ -50,12 +50,12 @@
                                 </Button>
                                 <labs:SettingsExpander.ItemTemplate>
                                     <DataTemplate x:DataType="viewmodels:InstalledExtensionViewModel">
-                                        <labs:SettingsCard Header="Manage extension"
+                                        <labs:SettingsCard x:Uid="ManageExtensionCard"
                                                            CornerRadius="0,0,3,3"
                                                            IsClickEnabled="{x:Bind HasSettingsProvider}"
                                                            Command="{x:Bind NavigateSettingsCommand}">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                <ToggleSwitch></ToggleSwitch>
+                                                <ToggleSwitch />
                                             </StackPanel>
                                         </labs:SettingsCard>
                                     </DataTemplate>
@@ -79,7 +79,7 @@
                                 <labs:SettingsCard.HeaderIcon>
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea86;"/>
                                 </labs:SettingsCard.HeaderIcon>
-                                <Button Content="Get"
+                                <Button x:Uid="GetButton"
                                         Padding="25 4 25 6"
                                         MinWidth="118"
                                         Command="{x:Bind LaunchStoreButtonCommand}"

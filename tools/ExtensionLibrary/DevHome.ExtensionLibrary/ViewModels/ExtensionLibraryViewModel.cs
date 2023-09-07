@@ -81,7 +81,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
                 continue;
             }
 
-            var extension = new InstalledExtensionViewModel(extensionWrapper.Name, extensionWrapper.PackageFamilyName, true /*TODO*/);
+            var extension = new InstalledExtensionViewModel(extensionWrapper.Name, extensionWrapper.PackageFullName, true /*TODO*/);
 
             // Each extension is shown under the package that contains it. Search to see if we have that package in the
             // list already, and add to it if we do.

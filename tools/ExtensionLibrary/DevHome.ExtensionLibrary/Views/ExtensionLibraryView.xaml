@@ -62,7 +62,7 @@
                                                            IsClickEnabled="{x:Bind HasSettingsProvider}"
                                                            Command="{x:Bind NavigateSettingsCommand}">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                <ToggleSwitch />
+                                                <ToggleSwitch IsOn="{x:Bind IsExtensionEnabled, Mode=TwoWay}"/>
                                             </StackPanel>
                                         </labs:SettingsCard>
                                     </DataTemplate>

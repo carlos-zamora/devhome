@@ -6,6 +6,9 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DevHome.Common.Contracts;
+using DevHome.Common.Extensions;
+using Microsoft.UI.Xaml;
 using Windows.ApplicationModel;
 using Windows.System;
 
@@ -16,16 +19,43 @@ public partial class InstalledExtensionViewModel : ObservableObject
     private string _displayName;
 
     [ObservableProperty]
-    private string _packageFamilyName;
+    private string _packageFullName;
 
     [ObservableProperty]
     private bool _hasSettingsProvider;
 
-    public InstalledExtensionViewModel(string displayName, string packageFamilyName, bool hasSettingsProvider)
+    [ObservableProperty]
+    private bool _isExtensionEnabled;
+
+    partial void OnIsExtensionEnabledChanging(bool value)
+    {
+        if (IsExtensionEnabled != value)
+        {
+            Task.Run(() =>
+            {
+                var localSettingsService = Application.Current.GetService<ILocalSettingsService>();
+                return localSettingsService.SaveSettingAsync(PackageFullName + "-ExtensionDisabled", !value);
+            }).Wait();
+        }
+    }
+
+    public InstalledExtensionViewModel(string displayName, string packageFullName, bool hasSettingsProvider)
     {
         _displayName = displayName;
-        _packageFamilyName = packageFamilyName;
+        _packageFullName = packageFullName;
         _hasSettingsProvider = hasSettingsProvider;
+
+        IsExtensionEnabled = GetIsExtensionEnabled();
+    }
+
+    private bool GetIsExtensionEnabled()
+    {
+        var isDisabled = Task.Run(() =>
+        {
+            var localSettingsService = Application.Current.GetService<ILocalSettingsService>();
+            return localSettingsService.ReadSettingAsync<bool>(PackageFullName + "-ExtensionDisabled");
+        }).Result;
+        return !isDisabled;
     }
 
     [RelayCommand]

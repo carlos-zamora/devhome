@@ -68,7 +68,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
             // Don't show self as an extension.
             if (Package.Current.Id.FullName == extensionWrapper.PackageFullName)
             {
-                ////continue;
+                continue;
             }
 
             var extension = new InstalledExtensionViewModel(extensionWrapper.Name, extensionWrapper.PackageFamilyName, true /*TODO*/);

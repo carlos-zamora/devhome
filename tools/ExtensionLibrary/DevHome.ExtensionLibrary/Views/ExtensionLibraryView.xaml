@@ -10,7 +10,14 @@
     xmlns:pg="using:DevHome.Common"
     xmlns:viewmodels="using:DevHome.ExtensionLibrary.ViewModels"
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:DoubleToVisibilityConverter x:Key="CountToVisibilityConverter" GreaterThan="0" FalseValue="Visible" TrueValue="Collapsed" />
+        </ResourceDictionary>
+    </Page.Resources>
+
 
     <Grid MaxWidth="{ThemeResource MaxPageContentWidth}" Margin="{ThemeResource ContentPageMargin}">
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,22,0,0">
@@ -64,6 +71,11 @@
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
+                <TextBlock x:Uid="NoExtensionsAdded"
+                           Text="No extensions added yet"
+                           Visibility="{x:Bind ViewModel.InstalledPackagesList.Count, Converter={StaticResource CountToVisibilityConverter}, Mode=OneWay}"
+                           Margin="0,50" 
+                           HorizontalAlignment="Center" />
 
                 <!-- Available items -->
                 <TextBlock x:Uid="AvailableFromStoreTextBlock"
@@ -88,7 +100,12 @@
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
-                
+                <TextBlock x:Uid="NoAvailableExtensions"
+                           Text="You've already installed all available extensions!"
+                           Visibility="{x:Bind ViewModel.StorePackagesList.Count, Converter={StaticResource CountToVisibilityConverter}, Mode=OneWay}"
+                           Margin="0,50,0,0"
+                           HorizontalAlignment="Center" />
+
             </StackPanel>
         </ScrollViewer>
     </Grid>

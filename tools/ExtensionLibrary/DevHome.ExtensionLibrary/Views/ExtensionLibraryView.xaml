@@ -28,7 +28,7 @@
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="viewmodels:InstalledPackageViewModel">
                             <labs:SettingsExpander Header="{x:Bind Title}"
-                                                   Description="{x:Bind Publisher}"
+                                                   Description="{x:Bind GeneratePackageDetails(Version,Publisher , InstalledDate), Mode=OneWay}"
                                                    Margin="{ThemeResource SettingsCardMargin}"
                                                    ItemsSource="{x:Bind InstalledExtensionsList}"
                                                    IsExpanded="True">

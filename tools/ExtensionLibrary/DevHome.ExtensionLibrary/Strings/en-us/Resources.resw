@@ -94,4 +94,12 @@
     <value>Uninstall</value>
     <comment>Button to uninstall the extension</comment>
   </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>Last updated</value>
+    <comment>Text that precedes the date and time a specific package was last updated on the user's computer</comment>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>Text that precedes the version number of a specific package</comment>
+  </data>
 </root>

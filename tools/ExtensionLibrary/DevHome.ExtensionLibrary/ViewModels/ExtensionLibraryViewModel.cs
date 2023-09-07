@@ -86,7 +86,13 @@ public partial class ExtensionLibraryViewModel : ObservableObject
 
             if (!foundPackage)
             {
-                var installedPackage = new InstalledPackageViewModel("x", extensionWrapper.Name, extensionWrapper.Publisher, extensionWrapper.PackageFamilyName);
+                var installedPackage = new InstalledPackageViewModel(
+                    "x",
+                    extensionWrapper.Name,
+                    extensionWrapper.Publisher,
+                    extensionWrapper.PackageFamilyName,
+                    extensionWrapper.InstalledDate,
+                    extensionWrapper.Version);
                 installedPackage.InstalledExtensionsList.Add(extension);
                 InstalledPackagesList.Add(installedPackage);
             }
@@ -131,10 +137,10 @@ public partial class ExtensionLibraryViewModel : ObservableObject
                 var productObj = product.GetObject();
                 var productId = productObj.GetNamedString("ProductId");
 
-                // Don't show self as available, and don't show packages of already installed extensions as available.
-                if (productId == devHomeProductId || IsAlreadyInstalled(productId))
+                // Don't show self as available.
+                if (productId == devHomeProductId)
                 {
-                    ////continue;
+                    continue;
                 }
 
                 var title = string.Empty;
@@ -151,17 +157,23 @@ public partial class ExtensionLibraryViewModel : ObservableObject
                 var properties = productObj.GetNamedObject("Properties");
                 var packageFamilyName = properties.GetNamedString("PackageFamilyName");
 
+                // Don't show packages of already installed extensions as available.
+                if (IsAlreadyInstalled(packageFamilyName))
+                {
+                    continue;
+                }
+
                 var storePackage = new StorePackageViewModel(productId, title, publisher, packageFamilyName);
                 StorePackagesList.Add(storePackage);
             }
         }
     }
 
-    private bool IsAlreadyInstalled(string productId)
+    private bool IsAlreadyInstalled(string packageFamilyName)
     {
         // PackageFullName = Microsoft.Windows.DevHome.Dev_0.0.0.0_x64__8wekyb3d8bbwe
         // PackageFamilyName = Microsoft.Windows.DevHomeGitHubExtension_8wekyb3d8bbwe
-        return InstalledPackagesList.Any(package => productId == package.ProductId);
+        return InstalledPackagesList.Any(package => packageFamilyName == package.PackageFamilyName);
     }
 
     [RelayCommand]

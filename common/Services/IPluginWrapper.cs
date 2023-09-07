@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation and Contributors
 // Licensed under the MIT license.
 
+using System;
 using System.Threading.Tasks;
 using Microsoft.Windows.DevHome.SDK;
+using Windows.ApplicationModel;
 
 namespace DevHome.Common.Services;
 public interface IPluginWrapper
@@ -43,6 +45,22 @@ public interface IPluginWrapper
     /// Gets class id (GUID) of the plugin class (which implements IPlugin) as mentioned in the manifest
     /// </summary>
     string PluginClassId
+    {
+        get;
+    }
+
+    /// <summary>
+    /// Gets the date on which the application package was installed or last updated.
+    /// </summary>
+    DateTimeOffset InstalledDate
+    {
+        get;
+    }
+
+    /// <summary>
+    /// Gets
+    /// </summary>
+    PackageVersion Version
     {
         get;
     }

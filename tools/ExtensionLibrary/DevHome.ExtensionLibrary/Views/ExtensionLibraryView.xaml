@@ -71,6 +71,7 @@
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
+                <!-- No extensions message -->
                 <TextBlock x:Uid="NoExtensionsAdded"
                            Text="No extensions added yet"
                            Visibility="{x:Bind ViewModel.InstalledPackagesList.Count, Converter={StaticResource CountToVisibilityConverter}, Mode=OneWay}"
@@ -100,9 +101,16 @@
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
+                <!-- No available items messages -->
                 <TextBlock x:Uid="NoAvailableExtensions"
                            Text="You've already installed all available extensions!"
-                           Visibility="{x:Bind ViewModel.StorePackagesList.Count, Converter={StaticResource CountToVisibilityConverter}, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.GetNoAvailableWidgetsVisibility(ViewModel.StorePackagesList.Count, ViewModel.ShouldShowStoreError), Mode=OneWay}"
+                           Margin="0,50,0,0"
+                           HorizontalAlignment="Center" />
+                <TextBlock x:Uid="StoreErrorMessage"
+                           Text="Dev Home could not retrieve available extensions from the Microsoft Store."
+                           Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                           Visibility="{x:Bind ViewModel.ShouldShowStoreError, Mode=OneWay}"
                            Margin="0,50,0,0"
                            HorizontalAlignment="Center" />
 

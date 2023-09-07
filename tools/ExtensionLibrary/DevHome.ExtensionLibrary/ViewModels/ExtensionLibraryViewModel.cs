@@ -32,6 +32,9 @@ public partial class ExtensionLibraryViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<InstalledPackageViewModel> _installedPackagesList = new ();
 
+    [ObservableProperty]
+    private bool _shouldShowStoreError = false;
+
     public ExtensionLibraryViewModel()
     {
         _dispatcher = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
@@ -44,10 +47,17 @@ public partial class ExtensionLibraryViewModel : ObservableObject
         GetAvailablePackages();
     }
 
+    [RelayCommand]
+    public async Task GetUpdatesButtonAsync()
+    {
+        await Launcher.LaunchUriAsync(new ("ms-windows-store://downloadsandupdates"));
+    }
+
     private async void OnPluginsChanged(object? sender, EventArgs e)
     {
         await _dispatcher.EnqueueAsync(() =>
         {
+            ShouldShowStoreError = false;
             GetInstalledExtensions();
             GetAvailablePackages();
         });
@@ -73,6 +83,8 @@ public partial class ExtensionLibraryViewModel : ObservableObject
 
             var extension = new InstalledExtensionViewModel(extensionWrapper.Name, extensionWrapper.PackageFamilyName, true /*TODO*/);
 
+            // Each extension is shown under the package that contains it. Search to see if we have that package in the
+            // list already, and add to it if we do.
             var foundPackage = false;
             foreach (var installedPackage in InstalledPackagesList)
             {
@@ -84,6 +96,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
                 }
             }
 
+            // If the package isn't in the list yet, add it.
             if (!foundPackage)
             {
                 var installedPackage = new InstalledPackageViewModel(
@@ -112,6 +125,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
         catch (Exception ex)
         {
             Log.Logger()?.ReportError("ExtensionLibraryViewModel", "Error retrieving packages", ex);
+            ShouldShowStoreError = true;
         }
 
         return packagesFileContents;
@@ -124,6 +138,7 @@ public partial class ExtensionLibraryViewModel : ObservableObject
         var storeData = await GetStoreData();
         if (string.IsNullOrEmpty(storeData))
         {
+            ShouldShowStoreError = true;
             return;
         }
 
@@ -175,9 +190,13 @@ public partial class ExtensionLibraryViewModel : ObservableObject
         return InstalledPackagesList.Any(package => packageFamilyName == package.PackageFamilyName);
     }
 
-    [RelayCommand]
-    public async Task GetUpdatesButtonAsync()
+    public Visibility GetNoAvailableWidgetsVisibility(int availableWidgetsCount, bool shouldShowStoreError)
     {
-        await Launcher.LaunchUriAsync(new ("ms-windows-store://downloadsandupdates"));
+        if (availableWidgetsCount == 0 && !shouldShowStoreError)
+        {
+            return Visibility.Visible;
+        }
+
+        return Visibility.Collapsed;
     }
 }

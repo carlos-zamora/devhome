@@ -41,9 +41,6 @@ public partial class InstalledExtensionViewModel : ObservableObject
 public partial class InstalledPackageViewModel : ObservableObject
 {
     [ObservableProperty]
-    private string _productId;
-
-    [ObservableProperty]
     private string _title;
 
     [ObservableProperty]
@@ -61,9 +58,8 @@ public partial class InstalledPackageViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<InstalledExtensionViewModel> _installedExtensionsList = new ();
 
-    public InstalledPackageViewModel(string productId, string title, string publisher, string packageFamilyName, DateTimeOffset installedDate, PackageVersion version)
+    public InstalledPackageViewModel(string title, string publisher, string packageFamilyName, DateTimeOffset installedDate, PackageVersion version)
     {
-        _productId = productId;
         _title = title;
         _publisher = publisher;
         _packageFamilyName = packageFamilyName;

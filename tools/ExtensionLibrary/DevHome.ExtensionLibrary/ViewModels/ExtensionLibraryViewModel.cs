@@ -87,7 +87,6 @@ public partial class ExtensionLibraryViewModel : ObservableObject
             if (!foundPackage)
             {
                 var installedPackage = new InstalledPackageViewModel(
-                    "x",
                     extensionWrapper.Name,
                     extensionWrapper.Publisher,
                     extensionWrapper.PackageFamilyName,

@@ -25,7 +25,9 @@
 
                 <!-- On your PC items -->
                 <Grid Margin="{StaticResource SettingsPageSubTitleMargin}">
-                    <TextBlock x:Uid="OnYourPcTextBlock" />
+                    <TextBlock x:Uid="OnYourPcTextBlock"
+                               Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                               VerticalAlignment="Center"/>
                     <Button x:Uid="GetUpdatesButton"
                             HorizontalAlignment="Right"
                             Style="{ThemeResource AccentButtonStyle}"
@@ -43,6 +45,7 @@
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea86;"/>
                                 </labs:SettingsExpander.HeaderIcon>
                                 <Button Content="&#xe712;"
+                                        Height="36" Width="36"
                                         FontFamily="{StaticResource SymbolThemeFontFamily}" 
                                         Background="Transparent"
                                         BorderThickness="0">
@@ -80,6 +83,7 @@
 
                 <!-- Available items -->
                 <TextBlock x:Uid="AvailableFromStoreTextBlock"
+                           Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                            Margin="{StaticResource ExtensionLibrarySubTitleMargin}" />
                 <ItemsRepeater ItemsSource="{x:Bind ViewModel.StorePackagesList, Mode=OneWay}">
                     <ItemsRepeater.ItemTemplate>
